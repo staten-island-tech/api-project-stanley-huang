@@ -30,3 +30,12 @@ body {
   margin: 0 auto;
   text-align: center;
 }
+
+.dog-image,
+#dog-img {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
