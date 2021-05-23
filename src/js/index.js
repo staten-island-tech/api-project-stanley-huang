@@ -1,17 +1,14 @@
 import { DOMSelectors } from "./DOM";
 import { genres } from "./genre";
 
-const query = async function () {
-  try {
-    const response = await fetch(
-      `https://dog.ceo/api/breeds/image/random
-      `
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    alert("Hey, something went wrong!");
-  }
-};
+async function getDog(breed) {
+  let x = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
+  return await x.json();
+}
+
+document
+  .getElementById("dog-selector-id")
+  .addEventListener("change", async function () {
+    let link = (await getDog(this.value)).message;
+    document.getElementById("dog-img").src = link;
+  });
