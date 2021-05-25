@@ -1,17 +1,32 @@
-//import { yes, no } from "./async";
-async function getDog(breed) {
-  let x = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
-  return await x.json();
-}
-getDog();
+import { getDog } from "./async";
 
 async function getDogList(breed) {
-  const y = await fetch("https://dog.ceo/api/breeds/list/all");
-  const data = await y.json();
+  const response = await fetch("https://dog.ceo/api/breeds/list/all");
+  const data = await response.json();
   createBreedList(data.message);
 }
+
+async function randomPic() {
+  const response = await fetch("https://dog.ceo/api/breeds/image/random");
+  const data = await response.json();
+  console.log(data.message);
+  return data.message;
+}
+randomPic();
 getDogList();
 function createBreedList(breedList) {
+  document.getElementById("preview").innerHTML = `
+  <img class="new-img">
+  <img class="new-img">
+  <img class="new-img">
+  <img class="new-img">
+  `;
+  Array.from(document.getElementById("preview").children).forEach(
+    async (img) => {
+      img.src = await randomPic();
+    }
+  );
+
   document.getElementById("breed").innerHTML = `
   <select name="" id="dog-selector-id">
             <option value="">Select a dog! </option>
